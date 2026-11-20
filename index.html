@@ -1,0 +1,98 @@
+
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffffff">
+<title>My Browser</title>
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;padding:25px 18px;
+ font-family:Arial,sans-serif;
+ background:#f5f7fb;color:#202124;
+}
+.logo{
+ text-align:center;margin:65px 0 30px;
+ font-size:36px;font-weight:bold;
+ letter-spacing:-2px;
+}
+.logo span:nth-child(1){color:#4285f4}
+.logo span:nth-child(2){color:#ea4335}
+.logo span:nth-child(3){color:#fbbc05}
+.logo span:nth-child(4){color:#4285f4}
+.logo span:nth-child(5){color:#34a853}
+.logo span:nth-child(6){color:#ea4335}
+.search{
+ display:flex;gap:8px;background:white;
+ padding:8px;border-radius:30px;
+ box-shadow:0 2px 12px #00000012;
+}
+input{
+ border:0;outline:0;flex:1;
+ min-width:0;padding:12px;
+ font-size:16px;background:transparent;
+}
+button{
+ border:0;border-radius:25px;
+ padding:12px 18px;background:#4285f4;
+ color:white;font-size:15px;font-weight:bold;
+}
+h3{margin-top:35px;font-size:16px}
+.sites{
+ display:grid;grid-template-columns:repeat(3,1fr);
+ gap:14px;margin-top:18px;
+}
+.site{
+ text-align:center;background:white;
+ padding:18px 5px;border-radius:14px;
+ text-decoration:none;color:#333;
+ font-size:14px;
+}
+.site b{display:block;font-size:25px;margin-bottom:8px}
+.note{text-align:center;color:#888;font-size:12px;margin-top:35px}
+</style>
+</head>
+<body>
+
+<div class="logo">
+<span>G</span><span>o</span><span>o</span><span>g</span><span>l</span><span>e</span>
+</div>
+
+<form class="search" id="searchForm">
+<input id="address" placeholder="Search or enter website URL..." required>
+<button type="submit">Go</button>
+</form>
+
+<h3>Quick Access</h3>
+<div class="sites">
+<a class="site" href="https://www.google.com/" target="_blank"><b>🔎</b>Google</a>
+<a class="site" href="https://www.youtube.com/" target="_blank"><b>▶️</b>YouTube</a>
+<a class="site" href="https://www.facebook.com/" target="_blank"><b>f</b>Facebook</a>
+<a class="site" href="https://www.wikipedia.org/" target="_blank"><b>🌐</b>Wikipedia</a>
+<a class="site" href="https://www.github.com/" target="_blank"><b>🐙</b>GitHub</a>
+<a class="site" href="https://www.ultrasports24.top/" target="_blank"><b>⚽</b>Sports</a>
+</div>
+
+<div class="note">My Browser • Powered by Google Search</div>
+
+<script>
+document.getElementById("searchForm").addEventListener("submit",function(e){
+ e.preventDefault();
+ let value=document.getElementById("address").value.trim();
+ if(!value)return;
+ let url;
+ if(/^https?:\/\//i.test(value)){
+   url=value;
+ }else if(/^[a-z0-9-]+(\.[a-z0-9-]+)+([/:?#].*)?$/i.test(value)){
+   url="https://"+value;
+ }else{
+   url="https://www.google.com/search?q="+encodeURIComponent(value);
+ }
+ window.open(url,"_blank","noopener");
+});
+</script>
+
+</body>
+</html>
