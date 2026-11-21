@@ -178,26 +178,24 @@ async function loadFiles() {
 }
 window.loadFiles = loadFiles;
 
-async function downloadFile(name) {
-  message('Downloading...');
 
-  const { data, error } = await supabase.storage
-    .from(bucket).download(name);
+async function downloadFile(name) {
+  message('Preparing download...');
+
+  const {data, error} = await supabase.storage
+    .from(bucket)
+    .createSignedUrl(name, 60, {download: true});
 
   if (error) {
     message(error.message);
     return;
   }
 
-  const url = URL.createObjectURL(data);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = name;
-  a.click();
+  message('Opening download link...');
 
-  setTimeout(() => URL.revokeObjectURL(url), 60000);
-  message('Download started');
+  window.open(data.signedUrl, '_blank');
 }
+
 
 supabase.auth.onAuthStateChange((_event, session) => {
   showApp(session);
